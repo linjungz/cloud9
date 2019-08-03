@@ -1,6 +1,3 @@
-# cloud9
-在AWS国内区域快速部署 Cloud9 Web IDE
-
 ## 关于Cloud9
 
 Cloud9是一个流行的Web IDE, 用户可以****
