@@ -40,6 +40,9 @@
         "InstanceAMI": {
             "cn-north-1": {
                 "Name": "ami-07ea2c074e5802798"
+            },
+            "cn-northwest-1": {
+                "Name": "ami-03c2d858bb89cfdc0"
             }
             
         }
