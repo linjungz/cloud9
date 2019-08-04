@@ -1,0 +1,169 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Cloudformation template for Cloud9 running in China Region",
+    "Metadata": {
+        "AWS::CloudFormation::Interface": {
+            "ParameterGroups": [
+                {
+                    "Label": {
+                        "default": "Cloud 9 Configuration"
+                    },
+                    "Parameters": [
+                        "c9UserName",
+                        "c9Password"
+                    ]
+                }
+            ],
+            "ParameterLabels": {
+                "c9UserName": {
+                    "default": "c9 username: "
+                },
+                "c9Password": {
+                    "default": "c9 password: "
+                }
+            }
+    }
+    },
+    "Parameters": {
+        "c9UserName": {
+            "Type": "String",
+            "Default": "aws",
+            "Description": "Provide a name for your Cloud9 Web IDE."
+        },
+        "c9Password": {
+            "Type": "String",
+            "Default": "passw0rd",
+            "Description": "Provide a password for your Cloud9 Web IDE."
+        }
+    },
+    "Mappings": {
+        "InstanceAMI": {
+            "cn-north-1": {
+                "Name": "ami-07ea2c074e5802798"
+            }
+            
+        }
+    },
+    "Resources": {
+        "InstanceSecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Cloud9 EC2 Port Access",
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "22",
+                        "ToPort": "22",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "8181",
+                        "ToPort": "8181",
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Cloud9 SG"
+                    }
+                ]
+            }
+        },
+        "Instance": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "InstanceType": "t3.medium",
+                "ImageId": {
+                    "Fn::FindInMap": [
+                        "InstanceAMI",
+                        {
+                            "Ref": "AWS::Region"
+                        },
+                        "Name"
+                    ]
+                },
+                "SecurityGroupIds": [
+                    {
+                        "Ref": "InstanceSecurityGroup"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Cloud9"
+                    }
+                ],
+                "BlockDeviceMappings": [
+                    {
+                        "DeviceName": "/dev/xvda",
+                        "Ebs": {
+                            "VolumeType": "gp2",
+                            "DeleteOnTermination": "true",
+                        }
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash\n",
+                                {
+                                    "Fn::Sub": "echo '${c9UserName}' > /home/ec2-user/c9username.txt\n"
+                                },
+                                {
+                                    "Fn::Sub": "echo '${c9Password}' > /home/ec2-user/c9password.txt\n"
+                                },
+                                "sed -i \"s/aws/`cat /home/ec2-user/c9username.txt`/g\" /home/ec2-user/c9.service\n",
+                                "sed -i \"s/passw0rd/`cat /home/ec2-user/c9password.txt`/g\" /home/ec2-user/c9.service\n",
+                                "cp /home/ec2-user/c9.service /etc/systemd/system/c9.service\n",
+                                "systemctl daemon-reload\n",
+                                "systemctl restart c9\n",
+                                "#Signal that process for c9 service has been done.\n",
+                                "/opt/aws/bin/cfn-signal --success true",
+                                "  --stack ",
+                                {
+                                    "Ref": "AWS::StackName"
+                                },
+                                "  --resource Instance",
+                                "  --region ",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                "\n"
+                            ]
+                        ]
+                    }
+                }
+            },
+            "CreationPolicy": {
+                "ResourceSignal": {
+                    "Count": 1,
+                    "Timeout": "PT5M"
+                }
+            }
+        }
+    },
+    "Outputs": {
+        "Cloud9": {
+            "Description": "Link for Cloud9",
+            "Value": {
+                "Fn::Join": [
+                    "",
+                    [
+                        "http://",
+                        {
+                            "Fn::GetAtt": [
+                                        "Instance",
+                                        "PublicIp"
+                                    ]
+                        },
+                        ":8181/"
+                    ]
+                ]
+            }
+        }
+    }
+}
