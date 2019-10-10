@@ -39,7 +39,7 @@
     "Mappings": {
         "InstanceAMI": {
             "cn-north-1": {
-                "Name": "ami-0f634ecb6d2972174"
+                "Name": "ami-09b01987545e49734"
             },
             "cn-northwest-1": {
                 "Name": "ami-06be53170cd19723e"
