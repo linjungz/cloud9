@@ -14,7 +14,7 @@ AWS区域名称 | AWS区域代号|模板链接
 北京区域 | cn-north-1| [![](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.amazonaws.cn/cloudformation/home?region=cn-north-1#/stacks/quickcreate?templateUrl=https%3A%2F%2Flinjungz-workshop.s3-ap-southeast-1.amazonaws.com%2Fcloud9-china.json&stackName=Cloud9&param_c9Password=passw0rd&param_c9UserName=aws)
 宁夏区域 | cn-northwest-1 | [![](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.amazonaws.cn/cloudformation/home?region=cn-northwest-1#/stacks/quickcreate?templateUrl=https%3A%2F%2Flinjungz-workshop.s3-ap-southeast-1.amazonaws.com%2Fcloud9-china.json&stackName=Cloud9&param_c9Password=passw0rd&param_c9UserName=aws)
 
-### 工作原理
+#### 工作原理
 
 整个模板的工作内容非常简单
 
@@ -24,4 +24,4 @@ AWS区域名称 | AWS区域代号|模板链接
 #### 2. 部署EC2实例
 基于自定义的AMI创建EC2实例，该AMI中已经安装好Cloud9 Core并配置为systemd的service。通过User Data来进行Cloud9 Core的初始化配置。User Data中运行的命令主要将CloudFormation模板中输入的用户名密码参数值更新到systemd service文件中，并重启服务使变更生效。
 
-
+### 通过AMI启动Cloud9

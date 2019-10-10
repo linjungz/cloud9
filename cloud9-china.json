@@ -42,7 +42,7 @@
                 "Name": "ami-0f634ecb6d2972174"
             },
             "cn-northwest-1": {
-                "Name": "ami-050f51bab11fa5ff4"
+                "Name": "ami-06be53170cd19723e"
             }
             
         }
@@ -103,7 +103,7 @@
                         "DeviceName": "/dev/xvda",
                         "Ebs": {
                             "VolumeType": "gp2",
-                            "DeleteOnTermination": "true",
+                            "DeleteOnTermination": "true"
                         }
                     }
                 ],
@@ -113,17 +113,20 @@
                             "",
                             [
                                 "#!/bin/bash\n",
+                                "echo \"Start Running User Data\"\n",
                                 {
                                     "Fn::Sub": "echo '${c9UserName}' > /home/ec2-user/c9username.txt\n"
                                 },
                                 {
                                     "Fn::Sub": "echo '${c9Password}' > /home/ec2-user/c9password.txt\n"
                                 },
-                                "sed -i \"s/aws/`cat /home/ec2-user/c9username.txt`/g\" /home/ec2-user/c9.service\n",
-                                "sed -i \"s/passw0rd/`cat /home/ec2-user/c9password.txt`/g\" /home/ec2-user/c9.service\n",
-                                "cp /home/ec2-user/c9.service /etc/systemd/system/c9.service\n",
+                                "sed -i \"s/aws/`cat /home/ec2-user/c9username.txt`/g\" /home/ec2-user/c9service.cfn\n",
+                                "sed -i \"s/passw0rd/`cat /home/ec2-user/c9password.txt`/g\" /home/ec2-user/c9service.cfn\n",
+                                "cp /home/ec2-user/c9service.cfn /etc/systemd/system/c9.service\n",
                                 "systemctl daemon-reload\n",
                                 "systemctl restart c9\n",
+                                "rm /home/ec2-user/c9username.txt\n",
+                                "rm /home/ec2-user/c9password.txt\n",
                                 "#Signal that process for c9 service has been done.\n",
                                 "/opt/aws/bin/cfn-signal --success true",
                                 "  --stack ",
@@ -135,7 +138,8 @@
                                 {
                                     "Ref": "AWS::Region"
                                 },
-                                "\n"
+                                "\n",
+                                "echo \"Finished Cloudformation User Data. `date`\n\""
                             ]
                         ]
                     }
