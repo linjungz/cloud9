@@ -11,8 +11,8 @@
 
 AWS区域名称 | AWS区域代号|模板链接
 --- | --- | ---
-北京区域 | cn-north-1| [![](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://cn-northwest-1.console.amazonaws.cn/cloudformation/home?region=cn-north-1#/stacks/quickcreate?templateUrl=https%3A%2F%2Fs3.cn-northwest-1.amazonaws.com.cn%2Fcf-templates-lvjleo0xe30a-cn-northwest-1%2F2019283IJ0-cloud9-china.json&stackName=Cloud9&param_c9Password=passw0rd&param_c9UserName=aws)
-宁夏区域 | cn-northwest-1 | [![](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://cn-northwest-1.console.amazonaws.cn/cloudformation/home?region=cn-northwest-1#/stacks/quickcreate?templateUrl=https%3A%2F%2Fs3.cn-northwest-1.amazonaws.com.cn%2Fcf-templates-lvjleo0xe30a-cn-northwest-1%2F2019283IJ0-cloud9-china.json&stackName=Cloud9&param_c9Password=passw0rd&param_c9UserName=aws)
+北京区域 | cn-north-1| [![](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://cn-northwest-1.console.amazonaws.cn/cloudformation/home?region=cn-north-1#/stacks/quickcreate?templateUrl=https%3A%2F%2Flinjungz-workshop.s3.cn-north-1.amazonaws.com.cn%2Fcloud9-china.json&stackName=Cloud9&param_c9Password=passw0rd&param_c9UserName=aws)
+宁夏区域 | cn-northwest-1 | [![](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://cn-northwest-1.console.amazonaws.cn/cloudformation/home?region=cn-northwest-1#/stacks/quickcreate?templateUrl=https%3A%2F%2Flinjungz-workshop.s3.cn-north-1.amazonaws.com.cn%2Fcloud9-china.json&stackName=Cloud9&param_c9Password=passw0rd&param_c9UserName=aws)
 
 #### 工作原理
 
