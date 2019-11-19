@@ -9,7 +9,7 @@
 
 目前这个AMI已经经过了Marketplace的流程并上线，中国区的用户可以在启动EC2的时候，选择Marketplace中的AMI创建一台虚拟机即可。Cloud9相关的Web服务会自动在EC2里面启动，相关的安全组也会配置好
 
-![Cloud9](maketplace.png)
+![Cloud9](https://github.com/linjungz/cloud9/blob/master/marketplace.png)
 
 
 
