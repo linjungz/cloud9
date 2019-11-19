@@ -5,6 +5,14 @@
 ## 在AWS国内区域部署Cloud9
 目前AWS Cloud9暂未落地在中国区域, 因此无法在控制台上直接启动一个Cloud9 IDE. 不过由于[Cloud9 Core](https://github.com/c9/core)是开源的，因此我们可以通过在EC2上部署Cloud9 Core来达到使用Cloud9 IDE的目的。
 
+### 通过AMI启动Cloud9
+
+目前这个AMI已经经过了Marketplace的流程并上线，中国区的用户可以在启动EC2的时候，选择Marketplace中的AMI创建一台虚拟机即可。Cloud9相关的Web服务会自动在EC2里面启动，相关的安全组也会配置好
+
+![Cloud9](maketplace.png)
+
+
+
 ### 通过CloudFormation模板一键启动Cloud9
 
 如下是CloudFormation模板的链接，可以在北京区域或是宁夏区域的默认VPC中部署一台安装了Cloud9 Core的EC2实例，模板部署完成后通过一个链接即可打开Cloud9 IDE.
@@ -24,4 +32,5 @@ AWS区域名称 | AWS区域代号|模板链接
 #### 2. 部署EC2实例
 基于自定义的AMI创建EC2实例，该AMI中已经安装好Cloud9 Core并配置为systemd的service。通过User Data来进行Cloud9 Core的初始化配置。User Data中运行的命令主要将CloudFormation模板中输入的用户名密码参数值更新到systemd service文件中，并重启服务使变更生效。
 
-### 通过AMI启动Cloud9
+
+
