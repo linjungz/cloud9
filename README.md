@@ -5,11 +5,12 @@
 ## 在AWS国内区域通过 Marketplace 部署 Cloud9 Web IDE
 目前AWS Cloud9暂未落地在中国区域, 因此无法在控制台上直接启动一个Cloud9 IDE. 不过由于[Cloud9 Core](https://github.com/c9/core)是开源的，因此我们可以通过在EC2上部署Cloud9 Core来达到使用Cloud9 IDE的目的。
 
-目前这个AMI已经经过了Marketplace的流程并上线，中国区的用户可以在启动EC2的时候，选择Marketplace中的AMI创建一台虚拟机即可。Cloud9相关的Web服务会自动在EC2里面启动，相关的安全组也会配置好。以下是具体的在AWS中国区控制台的操作步骤：
+目前这个AMI已经经过了[中国区Marketplace](https://awsmarketplace.amazonaws.cn/marketplace/pp/prodview-jybbc6npmjr72z?qid=1582728117327&sr=0-1&ref_=srh_res_product_title)的流程并上线，中国区的用户可以在启动EC2的时候，选择Marketplace中的AMI创建一台虚拟机即可。Cloud9相关的Web服务会自动在EC2里面启动，相关的安全组也会配置好。以下是具体的在AWS中国区控制台的操作步骤：
 
 #### 1. Marketplace中选择AMI
 
 ![AMI](pics/launch-1.jpg)
+
 
 #### 2. 了解AMI相关信息
 
